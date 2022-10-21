@@ -2,6 +2,8 @@ import {
   DiggingEstimator,
   InvalidFormatException,
   TunnelTooLongForDelayException,
+  TeamComposition,
+  Team
 } from "./digging-estimator";
 
 describe("DiggingEstimator", () => {
@@ -36,4 +38,33 @@ describe("DiggingEstimator", () => {
   it("should return an TunnelTooLongForDelayException", () => {
     expect(() => estimator.tunnel(28, 1, "granite")).toThrow(new TunnelTooLongForDelayException());
   });
+
+  it("should return the composition of team for the day and the night", () => {
+    const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite");
+    const dayTeam: Team = teamComposition.dayTeam;
+    const nightTeam: Team = teamComposition.dayTeam;
+
+    // Day
+    expect(dayTeam.miners).toBe(2);
+    expect(dayTeam.healers).toBe(1);
+    expect(dayTeam.smithies).toBe(2);
+    expect(dayTeam.lighters).toBe(0);
+    expect(dayTeam.innKeepers).toBe(8);
+    expect(dayTeam.guards).toBe(0);
+    expect(dayTeam.guardManagers).toBe(0);
+    expect(dayTeam.washers).toBe(2);
+
+    // Night
+    expect(nightTeam.miners).toBe(2);
+    expect(nightTeam.healers).toBe(1);
+    expect(nightTeam.smithies).toBe(2);
+    expect(nightTeam.lighters).toBe(0);
+    expect(nightTeam.innKeepers).toBe(8);
+    expect(nightTeam.guards).toBe(0);
+    expect(nightTeam.guardManagers).toBe(0);
+    expect(nightTeam.washers).toBe(2);
+  });
+
+
 });
+
