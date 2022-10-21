@@ -1,7 +1,6 @@
 import {
   DiggingEstimator,
   InvalidFormatException,
-  Team,
   TeamComposition,
   TunnelTooLongForDelayException,
 } from "./digging-estimator";
