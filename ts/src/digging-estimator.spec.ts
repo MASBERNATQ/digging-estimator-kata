@@ -13,7 +13,7 @@ describe("DiggingEstimator", () => {
     estimator = new DiggingEstimator();
     getDiggingRateForGranite = jest
       .spyOn(estimator, "getPublic")
-      .mockImplementation(() => [0, 3, 5.5, 7]);
+      .mockReturnValue([0, 3, 5.5, 7]);
   });
 
   it("should call the get function in order to get the digging rate", () => {
