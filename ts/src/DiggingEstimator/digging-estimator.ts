@@ -50,11 +50,11 @@ export class DiggingEstimator {
       nt.innKeepers = Math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4) * 4;
     }
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const oldWashers = nt.washers;
-      const oldGuard = nt.guards;
-      const oldChiefGuard = nt.guardManagers;
+    let oldWashers, oldGuard, oldChiefGuard;
+    do {
+      oldWashers = nt.washers;
+      oldGuard = nt.guards;
+      oldChiefGuard = nt.guardManagers;
 
       nt.washers = Math.ceil(
         (nt.miners +
@@ -68,15 +68,12 @@ export class DiggingEstimator {
       );
       nt.guards = Math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3);
       nt.guardManagers = Math.ceil(nt.guards / 3);
-
-      if (
-        oldWashers === nt.washers &&
-        oldGuard === nt.guards &&
-        oldChiefGuard === nt.guardManagers
-      ) {
-        break;
-      }
     }
+    while (
+      oldWashers !== nt.washers &&
+      oldGuard !== nt.guards &&
+      oldChiefGuard !== nt.guardManagers
+    );
 
     composition.total =
       dt.miners +
