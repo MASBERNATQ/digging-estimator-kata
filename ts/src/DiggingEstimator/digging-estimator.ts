@@ -30,39 +30,34 @@ export class DiggingEstimator {
     }
 
     const composition = new TeamComposition();
+    const { dayTeam: dt, nightTeam: nt } = composition;
 
     // Miners
     for (let i = 0; i < digPerRotation.length - 1; ++i) {
       if (digPerRotation[i] < digPerDay) {
-        composition.dayTeam.miners++;
+        dt.miners++;
       }
     }
     if (digPerDay > maxDigPerRotation) {
       for (let i = 0; i < digPerRotation.length - 1; ++i) {
         if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
-          composition.nightTeam.miners++;
+          nt.miners++;
         }
       }
     }
-
-    const dt = composition.dayTeam;
-    const nt = composition.nightTeam;
 
     if (dt.miners > 0) {
       dt.healers++;
       dt.smithies += 2;
       dt.innKeepers = Math.ceil((dt.miners + dt.healers + dt.smithies) / 4) * 4;
-      dt.washers = Math.ceil(
-        (dt.miners + dt.healers + dt.smithies + dt.innKeepers) / 10
-      );
+      dt.washers = Math.ceil((dt.miners + dt.healers + dt.smithies + dt.innKeepers) / 10);
     }
 
     if (nt.miners > 0) {
       nt.healers++;
       nt.smithies += 2;
       nt.lighters = nt.miners + 1;
-      nt.innKeepers =
-        Math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4) * 4;
+      nt.innKeepers = Math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4) * 4;
     }
 
     // eslint-disable-next-line no-constant-condition
@@ -81,9 +76,7 @@ export class DiggingEstimator {
           nt.guardManagers) /
           10
       );
-      nt.guards = Math.ceil(
-        (nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3
-      );
+      nt.guards = Math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3);
       nt.guardManagers = Math.ceil(nt.guards / 3);
 
       if (
