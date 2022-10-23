@@ -29,7 +29,7 @@ describe("DiggingEstimator", () => {
     expect(() => estimator.tunnel(20, -1, "granite")).toThrow(new InvalidFormatException());
   });
 
-  it("should return an TunnelTooLongForDelayException", () => {
+  it("should return an error if tunnel is too long for delay", () => {
     expect(() => estimator.tunnel(28, 1, "granite")).toThrow(new TunnelTooLongForDelayException());
   });
 
