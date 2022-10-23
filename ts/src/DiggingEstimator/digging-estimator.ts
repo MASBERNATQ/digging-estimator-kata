@@ -75,20 +75,7 @@ export class DiggingEstimator {
       oldChiefGuard !== nt.guardManagers
     );
 
-    composition.total =
-      dt.miners +
-      dt.washers +
-      dt.healers +
-      dt.smithies +
-      dt.innKeepers +
-      nt.miners +
-      nt.washers +
-      nt.healers +
-      nt.smithies +
-      nt.innKeepers +
-      nt.guards +
-      nt.guardManagers +
-      nt.lighters;
+    composition.total = dt.getTotal() + nt.getTotal();
 
     return composition;
   }

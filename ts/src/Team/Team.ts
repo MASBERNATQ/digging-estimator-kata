@@ -7,6 +7,24 @@ export class Team {
   guards = 0;
   guardManagers = 0;
   washers = 0;
+
+  /**
+   * Get total of team.
+   *
+   * @return {number}
+   */
+  getTotal(): number {
+    return (
+      this.miners +
+      this.healers +
+      this.smithies +
+      this.lighters +
+      this.innKeepers +
+      this.guards +
+      this.guardManagers +
+      this.washers
+    );
+  }
 }
 
 export default Team;
