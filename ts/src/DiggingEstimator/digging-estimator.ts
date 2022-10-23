@@ -1,24 +1,6 @@
-export class TunnelTooLongForDelayException extends Error {}
-
-export class InvalidFormatException extends Error {}
-
-export class Team {
-  miners = 0;
-  healers = 0;
-  smithies = 0;
-  lighters = 0;
-  innKeepers = 0;
-  guards = 0;
-  guardManagers = 0;
-  washers = 0;
-}
-
-export class TeamComposition {
-  dayTeam: Team = new Team();
-  nightTeam: Team = new Team();
-
-  total = 0;
-}
+import InvalidFormatException from "../ErrorException/InvalidFormatException";
+import TeamComposition from "../Team/TeamComposition";
+import TunnelTooLongForDelayException from "../ErrorException/TunnelTooLongForDelayException";
 
 export class DiggingEstimator {
   /**
@@ -67,22 +49,8 @@ export class DiggingEstimator {
     const nt = composition.nightTeam;
 
     if (dt.miners > 0) {
-      ++dt.healers;
-      ++dt.smithies;
-      ++dt.smithies;
-    }
-
-    if (nt.miners > 0) {
-      ++nt.healers;
-      ++nt.smithies;
-      ++nt.smithies;
-    }
-
-    if (nt.miners > 0) {
-      nt.lighters = nt.miners + 1;
-    }
-
-    if (dt.miners > 0) {
+      dt.healers++;
+      dt.smithies += 2;
       dt.innKeepers = Math.ceil((dt.miners + dt.healers + dt.smithies) / 4) * 4;
       dt.washers = Math.ceil(
         (dt.miners + dt.healers + dt.smithies + dt.innKeepers) / 10
@@ -90,6 +58,9 @@ export class DiggingEstimator {
     }
 
     if (nt.miners > 0) {
+      nt.healers++;
+      nt.smithies += 2;
+      nt.lighters = nt.miners + 1;
       nt.innKeepers =
         Math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4) * 4;
     }
@@ -168,3 +139,5 @@ export class DiggingEstimator {
     return this.get(rockType);
   }
 }
+
+export default DiggingEstimator;

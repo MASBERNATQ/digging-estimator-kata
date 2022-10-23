@@ -1,9 +1,7 @@
-import {
-  DiggingEstimator,
-  InvalidFormatException,
-  TeamComposition,
-  TunnelTooLongForDelayException,
-} from "./digging-estimator";
+import DiggingEstimator from "../DiggingEstimator/digging-estimator";
+import InvalidFormatException from "../ErrorException/InvalidFormatException";
+import TeamComposition from "../Team/TeamComposition";
+import TunnelTooLongForDelayException from "../ErrorException/TunnelTooLongForDelayException";
 
 describe("DiggingEstimator", () => {
   let estimator: DiggingEstimator;
@@ -88,4 +86,3 @@ describe("DiggingEstimator", () => {
     });
   });
 });
-
