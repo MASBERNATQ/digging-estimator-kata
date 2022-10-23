@@ -58,6 +58,21 @@ describe("DiggingEstimator", () => {
     });
   });
 
+  it("should return the composition of the team to dig a 3 meters granite rock for 1 day", () => {
+    const teamComposition: TeamComposition = estimator.tunnel(3, 1, "granite");
+    expect(teamComposition.total).toBe(9);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 1,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 4,
+      guards: 0,
+      guardManagers: 0,
+      washers: 1,
+    });
+  });
+
   xit("should return the composition of the team to dig a 15 meters granite rock for 3 days", () => {
     const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite");
     expect(teamComposition.total).toBe(15);
