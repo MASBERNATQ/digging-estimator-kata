@@ -30,7 +30,7 @@ export class DiggingEstimator {
    * @return {TeamComposition}
    */
   tunnel(length: number, days: number, rockType: string): TeamComposition {
-    const digPerRotation = this.get(rockType);
+    const digPerRotation = this.getPublic(rockType);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
     const maxDigPerDay = 2 * maxDigPerRotation;
 
@@ -147,7 +147,7 @@ export class DiggingEstimator {
    *
    * @param {string} rockType Type of rock
    */
-  public get(rockType: string): number[] {
+  private get(rockType: string): number[] {
     // For example, for granite it returns [0, 3, 5.5, 7]
     // if you put 0 dwarf, you dig 0m/d/team
     // if you put 1 dwarf, you dig 3m/d/team
@@ -156,5 +156,15 @@ export class DiggingEstimator {
     const url = `dtp://research.vin.co/digging-rate/${rockType}`;
     console.log(`Tried to fetch ${url}`);
     throw new Error("Does not work in test mode");
+  }
+
+  /**
+   * Public method to bypass the private method get.
+   *
+   * @param {string} rockType Type of rock
+   * @return {number[]}
+   */
+  public getPublic(rockType: string): number[] {
+    return this.get(rockType);
   }
 }

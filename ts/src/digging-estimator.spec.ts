@@ -12,7 +12,7 @@ describe("DiggingEstimator", () => {
   beforeEach(() => {
     estimator = new DiggingEstimator();
     getDiggingRateForGranite = jest
-      .spyOn(estimator, "get")
+      .spyOn(estimator, "getPublic")
       .mockImplementation(() => [0, 3, 5.5, 7]);
   });
 
