@@ -37,17 +37,18 @@ export class DiggingEstimator {
     }
 
     if (dt.miners > 0) {
-      dt.healers++;
-      dt.smithies += 2;
-      dt.innKeepers = Math.ceil((dt.miners + dt.healers + dt.smithies) / 4) * 4;
-      dt.washers = Math.ceil((dt.miners + dt.healers + dt.smithies + dt.innKeepers) / 10);
+      dt.calculHealers();
+      dt.calculSmithies();
+      dt.calculInnKeepers();
+      dt.calculWashers();
     }
 
     if (nt.miners > 0) {
-      nt.healers++;
-      nt.smithies += 2;
-      nt.lighters = nt.miners + 1;
-      nt.innKeepers = Math.ceil((nt.miners + nt.healers + nt.smithies + nt.lighters) / 4) * 4;
+      nt.calculHealers();
+      nt.calculSmithies();
+      nt.calculLighters();
+      nt.calculLighters();
+      nt.calculInnKeepers();
     }
 
     let oldWashers, oldGuard, oldChiefGuard;
@@ -56,18 +57,9 @@ export class DiggingEstimator {
       oldGuard = nt.guards;
       oldChiefGuard = nt.guardManagers;
 
-      nt.washers = Math.ceil(
-        (nt.miners +
-          nt.healers +
-          nt.smithies +
-          nt.innKeepers +
-          nt.lighters +
-          nt.guards +
-          nt.guardManagers) /
-          10
-      );
-      nt.guards = Math.ceil((nt.healers + nt.miners + nt.smithies + nt.lighters + nt.washers) / 3);
-      nt.guardManagers = Math.ceil(nt.guards / 3);
+      nt.calculWashers();
+      nt.calculGuards();
+      nt.calculGuardManagers();
     }
     while (
       oldWashers !== nt.washers &&
