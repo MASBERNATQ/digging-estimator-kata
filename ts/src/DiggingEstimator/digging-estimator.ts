@@ -1,5 +1,4 @@
 import { InvalidFormatException, TunnelTooLongForDelayException } from "../ErrorException";
-
 import TeamComposition from "../Team/TeamComposition";
 
 export class DiggingEstimator {
@@ -15,6 +14,7 @@ export class DiggingEstimator {
     const digPerRotation = this.getPublic(rockType);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
     const maxDigPerDay = 2 * maxDigPerRotation;
+    const digPerDay = Math.floor(length / days);
 
     if (
       Math.floor(length) !== length ||
@@ -25,7 +25,7 @@ export class DiggingEstimator {
       throw new InvalidFormatException();
     }
 
-    if (Math.floor(length / days) > maxDigPerDay) {
+    if (digPerDay > maxDigPerDay) {
       throw new TunnelTooLongForDelayException();
     }
 
@@ -33,13 +33,13 @@ export class DiggingEstimator {
 
     // Miners
     for (let i = 0; i < digPerRotation.length - 1; ++i) {
-      if (digPerRotation[i] < Math.floor(length / days)) {
+      if (digPerRotation[i] < digPerDay) {
         composition.dayTeam.miners++;
       }
     }
-    if (Math.floor(length / days) > maxDigPerRotation) {
+    if (digPerDay > maxDigPerRotation) {
       for (let i = 0; i < digPerRotation.length - 1; ++i) {
-        if (digPerRotation[i] + maxDigPerRotation < Math.floor(length / days)) {
+        if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
           composition.nightTeam.miners++;
         }
       }
