@@ -128,7 +128,7 @@ export class DiggingEstimator {
   }
 
   /**
-   * Get a list with number of meters dug per day and per miners.
+   * Get a list with number of meters dug per day and per team miners.
    *
    * @param {string} rockType Type of rock
    */
