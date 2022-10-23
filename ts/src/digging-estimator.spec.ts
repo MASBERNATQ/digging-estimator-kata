@@ -73,7 +73,7 @@ describe("DiggingEstimator", () => {
     });
   });
 
-  xit("should return the composition of the team to dig a 15 meters granite rock for 3 days", () => {
+  it("should return the composition of the team to dig a 15 meters granite rock for 3 days", () => {
     const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite");
     expect(teamComposition.total).toBe(15);
     expect(teamComposition.dayTeam).toEqual({
