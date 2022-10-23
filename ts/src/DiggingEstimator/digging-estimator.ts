@@ -12,9 +12,9 @@ export class DiggingEstimator {
    */
   tunnel(length: number, days: number, rockType: string): TeamComposition {
     const digPerRotation = this.getPublic(rockType);
+    const digPerDay = Math.floor(length / days);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
     const maxDigPerDay = 2 * maxDigPerRotation;
-    const digPerDay = Math.floor(length / days);
 
     this.checkParameters(length, days);
     this.checkDigDelay(digPerDay, maxDigPerDay);
@@ -115,7 +115,7 @@ export class DiggingEstimator {
   }
 
   /**
-   * Check if the parameters are valid.
+   * Check if the dig delay is possible.
    *
    * @param {number} digPerDay Dig per day
    * @param {number} maxDigPerDay Max dig per day
