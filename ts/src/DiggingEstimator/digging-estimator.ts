@@ -16,18 +16,8 @@ export class DiggingEstimator {
     const maxDigPerDay = 2 * maxDigPerRotation;
     const digPerDay = Math.floor(length / days);
 
-    if (
-      Math.floor(length) !== length ||
-      Math.floor(days) !== days ||
-      length < 0 ||
-      days < 0
-    ) {
-      throw new InvalidFormatException();
-    }
-
-    if (digPerDay > maxDigPerDay) {
-      throw new TunnelTooLongForDelayException();
-    }
+    this.checkParameters(length, days);
+    this.checkDigDelay(digPerDay, maxDigPerDay);
 
     const composition = new TeamComposition();
     const { dayTeam: dt, nightTeam: nt } = composition;
@@ -104,6 +94,37 @@ export class DiggingEstimator {
       nt.lighters;
 
     return composition;
+  }
+
+  /**
+   * Check if the parameters are valid.
+   *
+   * @param {number} length Tunnel length
+   * @param {number} days Time in days to dig the tunnel
+   * @return {void}
+   */
+  private checkParameters(length: number, days: number): void {
+    if (
+      Math.floor(length) !== length ||
+      Math.floor(days) !== days ||
+      length < 0 ||
+      days < 0
+    ) {
+      throw new InvalidFormatException();
+    }
+  }
+
+  /**
+   * Check if the parameters are valid.
+   *
+   * @param {number} digPerDay Dig per day
+   * @param {number} maxDigPerDay Max dig per day
+   * @return {void}
+   */
+   private checkDigDelay(digPerDay: number, maxDigPerDay: number): void {
+    if (digPerDay > maxDigPerDay) {
+      throw new TunnelTooLongForDelayException();
+    }
   }
 
   /**
