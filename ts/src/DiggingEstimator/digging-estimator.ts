@@ -29,7 +29,6 @@ export class DiggingEstimator {
     const composition = new TeamComposition();
     const { dayTeam: dt, nightTeam: nt } = composition;
 
-    // Miners
     for (let i = 0; i < digPerRotation.length - 1; ++i) {
       if (digPerRotation[i] < digPerDay) {
         dt.miners++;
