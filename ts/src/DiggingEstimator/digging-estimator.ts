@@ -21,10 +21,9 @@ export class DiggingEstimator {
     const digPerRotation = this.getPublic(rockType);
     const digPerDay = Math.floor(length / days);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
-    const maxDigPerDay = 2 * maxDigPerRotation;
 
     this.checkParameters(length, days);
-    this.checkDigDelay(digPerDay, maxDigPerDay);
+    this.checkDigDelay(digPerDay, maxDigPerRotation);
 
     const composition = new TeamComposition();
     const { dayTeam: dt, nightTeam: nt } = composition;
@@ -94,10 +93,12 @@ export class DiggingEstimator {
    * Check if the dig delay is possible.
    *
    * @param {number} digPerDay Dig per day
-   * @param {number} maxDigPerDay Max dig per day
+   * @param {number} maxDigPerRotation Max dig per rotation
    * @return {void}
    */
-  private checkDigDelay(digPerDay: number, maxDigPerDay: number): void {
+  private checkDigDelay(digPerDay: number, maxDigPerRotation: number): void {
+    const maxDigPerDay = 2 * maxDigPerRotation;
+
     if (digPerDay > maxDigPerDay) {
       throw new TunnelTooLongForDelayException();
     }
