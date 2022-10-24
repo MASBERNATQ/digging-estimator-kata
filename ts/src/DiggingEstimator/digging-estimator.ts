@@ -59,13 +59,9 @@ export class DiggingEstimator {
 
     let oldWashers, oldGuard, oldChiefGuard;
     do {
-      oldWashers = nt.washers;
-      oldGuard = nt.guards;
-      oldChiefGuard = nt.guardManagers;
-
-      nt.calculWashers();
-      nt.calculGuards();
-      nt.calculGuardManagers();
+      oldWashers = nt.calculWashers();
+      oldGuard = nt.calculGuards();
+      oldChiefGuard = nt.calculGuardManagers();
     } while (
       oldWashers !== nt.washers &&
       oldGuard !== nt.guards &&
