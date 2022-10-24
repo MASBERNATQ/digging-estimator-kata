@@ -33,6 +33,7 @@ export class DiggingEstimator {
         dt.miners++;
       }
     }
+
     if (digPerDay > maxDigPerRotation) {
       for (let i = 0; i < digPerRotation.length - 1; ++i) {
         if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
