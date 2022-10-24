@@ -6,7 +6,7 @@ import TeamComposition from "../Team/TeamComposition";
 
 export class DiggingEstimator {
   /**
-   * Tunnel.
+   * Calcul the team composition according the length of the tunnel, the number of days and the type of rock.
    *
    * @param {number} length Tunnel length
    * @param {number} days Time in days to dig the tunnel
