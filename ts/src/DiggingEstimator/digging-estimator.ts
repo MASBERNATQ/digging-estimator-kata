@@ -1,4 +1,7 @@
-import { InvalidFormatException, TunnelTooLongForDelayException } from "../ErrorException";
+import {
+  InvalidFormatException,
+  TunnelTooLongForDelayException,
+} from "../ErrorException";
 import TeamComposition from "../Team/TeamComposition";
 
 export class DiggingEstimator {
@@ -10,7 +13,11 @@ export class DiggingEstimator {
    * @param {string} rockType Type of rock
    * @return {TeamComposition}
    */
-  tunnel(length: number, days: number, rockType: string): TeamComposition {
+  public tunnel(
+    length: number,
+    days: number,
+    rockType: string
+  ): TeamComposition {
     const digPerRotation = this.getPublic(rockType);
     const digPerDay = Math.floor(length / days);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
@@ -47,7 +54,6 @@ export class DiggingEstimator {
       nt.calculHealers();
       nt.calculSmithies();
       nt.calculLighters();
-      nt.calculLighters();
       nt.calculInnKeepers();
     }
 
@@ -60,8 +66,7 @@ export class DiggingEstimator {
       nt.calculWashers();
       nt.calculGuards();
       nt.calculGuardManagers();
-    }
-    while (
+    } while (
       oldWashers !== nt.washers &&
       oldGuard !== nt.guards &&
       oldChiefGuard !== nt.guardManagers
@@ -97,7 +102,7 @@ export class DiggingEstimator {
    * @param {number} maxDigPerDay Max dig per day
    * @return {void}
    */
-   private checkDigDelay(digPerDay: number, maxDigPerDay: number): void {
+  private checkDigDelay(digPerDay: number, maxDigPerDay: number): void {
     if (digPerDay > maxDigPerDay) {
       throw new TunnelTooLongForDelayException();
     }

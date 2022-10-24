@@ -13,8 +13,8 @@ export class Team {
    *
    * @return {void}
    */
-   calculHealers(): void {
-    this.healers += 1;
+  public calculHealers(): void {
+    this.healers = 1;
   }
 
   /**
@@ -22,8 +22,8 @@ export class Team {
    *
    * @return {void}
    */
-  calculSmithies(): void {
-    this.smithies += 2;
+  public calculSmithies(): void {
+    this.smithies = 2;
   }
 
   /**
@@ -31,7 +31,7 @@ export class Team {
    *
    * @return {void}
    */
-  calculLighters(): void {
+  public calculLighters(): void {
     this.lighters = this.miners + 1;
   }
 
@@ -40,7 +40,7 @@ export class Team {
    *
    * @return {void}
    */
-  calculInnKeepers(): void {
+  public calculInnKeepers(): void {
     this.innKeepers =
       Math.ceil(
         (this.miners + this.healers + this.smithies + this.lighters) / 4
@@ -52,7 +52,7 @@ export class Team {
    *
    * @return {void}
    */
-  calculGuards(): void {
+  public calculGuards(): void {
     this.guards = Math.ceil(
       (this.healers +
         this.miners +
@@ -68,7 +68,7 @@ export class Team {
    *
    * @return {void}
    */
-  calculGuardManagers(): void {
+  public calculGuardManagers(): void {
     this.guardManagers = Math.ceil(this.guards / 3);
   }
 
@@ -77,7 +77,7 @@ export class Team {
    *
    * @return {void}
    */
-  calculWashers(): void {
+  public calculWashers(): void {
     this.washers = Math.ceil(
       (this.miners +
         this.healers +
@@ -95,7 +95,7 @@ export class Team {
    *
    * @return {number}
    */
-  getTotal(): number {
+  public getTotal(): number {
     return (
       this.miners +
       this.healers +
