@@ -11,48 +11,52 @@ export class Team {
   /**
    * Calcul the number of healers.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculHealers(): void {
+  public calculHealers(): number {
     this.healers = 1;
+    return this.healers;
   }
 
   /**
    * Calcul the number of smithies.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculSmithies(): void {
+  public calculSmithies(): number {
     this.smithies = 2;
+    return this.smithies;
   }
 
   /**
    * Calcul the number of lighters.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculLighters(): void {
+  public calculLighters(): number {
     this.lighters = this.miners + 1;
+    return this.lighters;
   }
 
   /**
    * Calcul the number of innkeepers.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculInnKeepers(): void {
+  public calculInnKeepers(): number {
     this.innKeepers =
       Math.ceil(
         (this.miners + this.healers + this.smithies + this.lighters) / 4
       ) * 4;
+    return this.innKeepers;
   }
 
   /**
    * Calcul the number of guards.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculGuards(): void {
+  public calculGuards(): number {
     this.guards = Math.ceil(
       (this.healers +
         this.miners +
@@ -61,23 +65,25 @@ export class Team {
         this.washers) /
         3
     );
+    return this.guards;
   }
 
   /**
    * Calcul the number of guard managers.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculGuardManagers(): void {
+  public calculGuardManagers(): number {
     this.guardManagers = Math.ceil(this.guards / 3);
+    return this.guardManagers;
   }
 
   /**
    * Calcul the number of washers.
    *
-   * @return {void}
+   * @return {number}
    */
-  public calculWashers(): void {
+  public calculWashers(): number {
     this.washers = Math.ceil(
       (this.miners +
         this.healers +
@@ -88,6 +94,7 @@ export class Team {
         this.guardManagers) /
         10
     );
+    return this.washers;
   }
 
   /**
