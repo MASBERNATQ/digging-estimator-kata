@@ -1,4 +1,7 @@
-import { InvalidFormatException, TunnelTooLongForDelayException } from "../ErrorException";
+import {
+  InvalidFormatException,
+  TunnelTooLongForDelayException,
+} from "../ErrorException";
 import DiggingEstimator from "../DiggingEstimator/digging-estimator";
 import TeamComposition from "../Team/TeamComposition";
 
