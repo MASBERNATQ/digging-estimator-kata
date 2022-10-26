@@ -30,9 +30,7 @@ export class DiggingEstimator {
 
     // Day team
     for (let i = 0; i < digPerRotation.length - 1; ++i) {
-      if (digPerRotation[i] < digPerDay) {
-        dt.miners++;
-      }
+      if (digPerRotation[i] < digPerDay) dt.miners++;
     }
 
     dt.calculHealers();
@@ -43,9 +41,7 @@ export class DiggingEstimator {
     // Night team
     if (digPerDay > maxDigPerRotation) {
       for (let i = 0; i < digPerRotation.length - 1; ++i) {
-        if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
-          nt.miners++;
-        }
+        if (digPerRotation[i] + maxDigPerRotation < digPerDay) nt.miners++;
       }
     }
 
