@@ -3,6 +3,9 @@
     "baseUrl": "./",
     "module": "commonjs",
     "noImplicitAny": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "sourceMap": false,
     "strict": true,
     "target": "es5"

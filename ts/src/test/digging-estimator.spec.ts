@@ -1,9 +1,9 @@
 import {
   InvalidFormatException,
   TunnelTooLongForDelayException,
-} from "../ErrorException";
-import DiggingEstimator from "../DiggingEstimator/digging-estimator";
-import TeamComposition from "../Team/TeamComposition";
+} from "@/ErrorException";
+import DiggingEstimator from "@/DiggingEstimator/digging-estimator";
+import TeamComposition from "@/Team/TeamComposition";
 
 describe("DiggingEstimator", () => {
   let estimator: DiggingEstimator;

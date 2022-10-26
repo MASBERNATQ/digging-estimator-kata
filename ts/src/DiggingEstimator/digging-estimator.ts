@@ -1,8 +1,8 @@
 import {
   InvalidFormatException,
   TunnelTooLongForDelayException,
-} from "../ErrorException";
-import TeamComposition from "../Team/TeamComposition";
+} from "@/ErrorException";
+import TeamComposition from "@/Team/TeamComposition";
 
 export class DiggingEstimator {
   /**
