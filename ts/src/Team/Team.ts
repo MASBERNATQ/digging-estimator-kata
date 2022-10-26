@@ -14,7 +14,10 @@ export class Team {
    * @return {number}
    */
   public calculHealers(): number {
-    this.healers = 1;
+    if (this.atLeastOneMiner()) {
+      this.healers = 1;
+    }
+
     return this.healers;
   }
 
@@ -24,7 +27,10 @@ export class Team {
    * @return {number}
    */
   public calculSmithies(): number {
-    this.smithies = 2;
+    if (this.atLeastOneMiner()) {
+      this.smithies = 2;
+    }
+
     return this.smithies;
   }
 
@@ -34,7 +40,10 @@ export class Team {
    * @return {number}
    */
   public calculLighters(): number {
-    this.lighters = this.miners + 1;
+    if (this.atLeastOneMiner()) {
+      this.lighters = this.miners + 1;
+    }
+
     return this.lighters;
   }
 
@@ -44,10 +53,13 @@ export class Team {
    * @return {number}
    */
   public calculInnKeepers(): number {
-    this.innKeepers =
-      Math.ceil(
-        (this.miners + this.healers + this.smithies + this.lighters) / 4
-      ) * 4;
+    if (this.atLeastOneMiner()) {
+      this.innKeepers =
+        Math.ceil(
+          (this.miners + this.healers + this.smithies + this.lighters) / 4
+        ) * 4;
+    }
+
     return this.innKeepers;
   }
 
@@ -57,14 +69,17 @@ export class Team {
    * @return {number}
    */
   public calculGuards(): number {
-    this.guards = Math.ceil(
-      (this.healers +
-        this.miners +
-        this.smithies +
-        this.lighters +
-        this.washers) /
-        3
-    );
+    if (this.atLeastOneMiner()) {
+      this.guards = Math.ceil(
+        (this.miners +
+          this.healers +
+          this.smithies +
+          this.lighters +
+          this.washers) /
+          3
+      );
+    }
+
     return this.guards;
   }
 
@@ -74,7 +89,10 @@ export class Team {
    * @return {number}
    */
   public calculGuardManagers(): number {
-    this.guardManagers = Math.ceil(this.guards / 3);
+    if (this.atLeastOneMiner()) {
+      this.guardManagers = Math.ceil(this.guards / 3);
+    }
+
     return this.guardManagers;
   }
 
@@ -84,16 +102,19 @@ export class Team {
    * @return {number}
    */
   public calculWashers(): number {
-    this.washers = Math.ceil(
-      (this.miners +
-        this.healers +
-        this.smithies +
-        this.innKeepers +
-        this.lighters +
-        this.guards +
-        this.guardManagers) /
-        10
-    );
+    if (this.atLeastOneMiner()) {
+      this.washers = Math.ceil(
+        (this.miners +
+          this.healers +
+          this.smithies +
+          this.lighters +
+          this.innKeepers +
+          this.guards +
+          this.guardManagers) /
+          10
+      );
+    }
+
     return this.washers;
   }
 
@@ -113,6 +134,15 @@ export class Team {
       this.guardManagers +
       this.washers
     );
+  }
+
+  /**
+   * At least one miner.
+   *
+   * @return {boolean}
+   */
+  private atLeastOneMiner(): boolean {
+    return this.miners > 0;
   }
 }
 

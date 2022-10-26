@@ -42,19 +42,15 @@ export class DiggingEstimator {
       }
     }
 
-    if (dt.miners > 0) {
-      dt.calculHealers();
-      dt.calculSmithies();
-      dt.calculInnKeepers();
-      dt.calculWashers();
-    }
+    dt.calculHealers();
+    dt.calculSmithies();
+    dt.calculInnKeepers();
+    dt.calculWashers();
 
-    if (nt.miners > 0) {
-      nt.calculHealers();
-      nt.calculSmithies();
-      nt.calculLighters();
-      nt.calculInnKeepers();
-    }
+    nt.calculHealers();
+    nt.calculSmithies();
+    nt.calculLighters();
+    nt.calculInnKeepers();
 
     let oldWashers, oldGuard, oldChiefGuard;
     do {
