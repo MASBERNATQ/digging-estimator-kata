@@ -28,17 +28,10 @@ export class DiggingEstimator {
     const composition = new TeamComposition();
     const { dayTeam: dt, nightTeam: nt } = composition;
 
+    // Day team
     for (let i = 0; i < digPerRotation.length - 1; ++i) {
       if (digPerRotation[i] < digPerDay) {
         dt.miners++;
-      }
-    }
-
-    if (digPerDay > maxDigPerRotation) {
-      for (let i = 0; i < digPerRotation.length - 1; ++i) {
-        if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
-          nt.miners++;
-        }
       }
     }
 
@@ -46,6 +39,15 @@ export class DiggingEstimator {
     dt.calculSmithies();
     dt.calculInnKeepers();
     dt.calculWashers();
+
+    // Night team
+    if (digPerDay > maxDigPerRotation) {
+      for (let i = 0; i < digPerRotation.length - 1; ++i) {
+        if (digPerRotation[i] + maxDigPerRotation < digPerDay) {
+          nt.miners++;
+        }
+      }
+    }
 
     nt.calculHealers();
     nt.calculSmithies();
