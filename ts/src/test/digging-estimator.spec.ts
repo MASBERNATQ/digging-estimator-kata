@@ -3,31 +3,26 @@ import {
   TunnelTooLongForDelayException,
 } from "@/ErrorException";
 import DiggingEstimator from "@/DiggingEstimator/DiggingEstimator";
+import DiggingEstimatorTest from "@/DiggingEstimator/DiggingEstimatorTest";
 import TeamComposition from "@/Team/TeamComposition";
 
 describe("DiggingEstimator", () => {
-  let estimator: DiggingEstimator;
-  let getDiggingRateForGranite: jest.SpyInstance<number[], [rockType: string]>;
-  let hasGoblinsAccordingLocation: jest.SpyInstance<boolean, [location: string]>;
+  let estimatorTest: DiggingEstimatorTest;
 
   beforeEach(() => {
-    estimator = new DiggingEstimator();
-    getDiggingRateForGranite = jest
-      .spyOn(estimator, "getPublic")
-      .mockReturnValue([0, 3, 5.5, 7]);
-    hasGoblinsAccordingLocation = jest
-      .spyOn(estimator, "hasGoblinsAccordingLocation")
-      .mockReturnValue(false);
+    estimatorTest = new DiggingEstimatorTest()
+      .mockGetDiggingRate([0, 3, 5.5, 7])
+      .mockHasGoblinsAccordingLocation(false);
   });
 
   it("should call the get method", () => {
-    estimator.tunnel(28, 2, "granite", "bretagne");
-    expect(getDiggingRateForGranite).toHaveBeenCalled();
+    estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+    expect(estimatorTest.getDiggingRate).toHaveBeenCalled();
   });
 
   it("should call the hasGoblinsAccordingLocation method", () => {
-    estimator.tunnel(28, 2, "granite", "bretagne");
-    expect(hasGoblinsAccordingLocation).toHaveBeenCalled();
+    estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+    expect(estimatorTest.hasGoblinsAccordingLocation).toHaveBeenCalled();
   });
 
   it("should return an error when get method is called", () => {
@@ -39,6 +34,8 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return an error if parameters are invalid", () => {
+    const estimator = estimatorTest.getInstance();
+
     expect(() => estimator.tunnel(20.2, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
     expect(() => estimator.tunnel(20, 2.2, "granite","bretagne")).toThrow(new InvalidFormatException());
     expect(() => estimator.tunnel(-1, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
@@ -46,11 +43,12 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return an error if tunnel is too long for delay", () => {
-    expect(() => estimator.tunnel(28, 1, "granite", "bretagne")).toThrow(new TunnelTooLongForDelayException());
+    expect(() => estimatorTest.getInstance().tunnel(28, 1, "granite", "bretagne")).toThrow(new TunnelTooLongForDelayException());
   });
 
   it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region without goblins", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(28, 2, "granite", "bretagne");
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+
     expect(teamComposition.total).toBe(48);
     expect(teamComposition.dayTeam).toEqual({
       miners: 3,
@@ -77,7 +75,8 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 3 meters granite rock for 1 day in a region without goblins", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(3, 1, "granite", "bretagne");
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(3, 1, "granite", "bretagne");
+
     expect(teamComposition.total).toBe(9);
     expect(teamComposition.dayTeam).toEqual({
       miners: 1,
@@ -93,7 +92,8 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 15 meters granite rock for 3 days in a region without goblins", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite", "bretagne");
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(15, 3, "granite", "bretagne");
+
     expect(teamComposition.total).toBe(15);
     expect(teamComposition.dayTeam).toEqual({
       miners: 2,
@@ -110,9 +110,11 @@ describe("DiggingEstimator", () => {
 
   it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region of goblins", () => {
     // Add region with goblins
-    jest.spyOn(estimator, "hasGoblinsAccordingLocation").mockReturnValue(true);
+    estimatorTest = new DiggingEstimatorTest()
+      .mockGetDiggingRate([0, 3, 5.5, 7])
+      .mockHasGoblinsAccordingLocation(true);
 
-    const teamComposition: TeamComposition = estimator.tunnel(28, 2, "granite", "normandie");
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "normandie");
     expect(teamComposition.total).toBe(54);
     expect(teamComposition.dayTeam).toEqual({
       miners: 3,
