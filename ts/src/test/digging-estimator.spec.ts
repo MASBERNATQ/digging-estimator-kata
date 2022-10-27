@@ -112,7 +112,7 @@ describe("DiggingEstimator", () => {
     estimatorTest.mockHasGoblinsAccordingLocation(true);
     const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "normandie");
 
-    expect(teamComposition.total).toBe(54);
+    expect(teamComposition.total).toBe(58);
     expect(teamComposition.dayTeam).toEqual({
       miners: 3,
       healers: 1,
@@ -129,7 +129,7 @@ describe("DiggingEstimator", () => {
       healers: 1,
       smithies: 2,
       lighters: 6,
-      innKeepers: 12,
+      innKeepers: 16,
       guards: 5,
       guardManagers: 2,
       washers: 3,
