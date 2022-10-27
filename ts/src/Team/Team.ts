@@ -7,6 +7,7 @@ export class Team {
   guards = 0;
   guardManagers = 0;
   washers = 0;
+  protectors = 0;
 
   /**
    * Calcul the number of healers.
@@ -56,7 +57,12 @@ export class Team {
     if (this.atLeastOneMiner()) {
       this.innKeepers =
         Math.ceil(
-          (this.miners + this.healers + this.smithies + this.lighters) / 4
+          (this.miners +
+            this.healers +
+            this.smithies +
+            this.lighters +
+            this.protectors) /
+            4
         ) * 4;
     }
 
@@ -110,12 +116,26 @@ export class Team {
           this.lighters +
           this.innKeepers +
           this.guards +
-          this.guardManagers) /
+          this.guardManagers +
+          this.protectors) /
           10
       );
     }
 
     return this.washers;
+  }
+
+  /**
+   * Calcul the number of protectors.
+   *
+   * @return {number}
+   */
+  public calculProtectors(): number {
+    if (this.atLeastOneMiner()) {
+      this.protectors = 2;
+    }
+
+    return this.protectors;
   }
 
   /**
@@ -132,7 +152,8 @@ export class Team {
       this.innKeepers +
       this.guards +
       this.guardManagers +
-      this.washers
+      this.washers +
+      this.protectors
     );
   }
 

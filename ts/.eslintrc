@@ -20,6 +20,12 @@
         }
       }
     ],
+    "jsdoc/no-undefined-types": [
+      1,
+      {
+        "definedTypes": ["jest"]
+      }
+    ],
     "require-jsdoc": [
       "error",
       {

@@ -1,0 +1,139 @@
+import {
+  InvalidFormatException,
+  TunnelTooLongForDelayException,
+} from "@/ErrorException";
+import DiggingEstimator from "@/DiggingEstimator/DiggingEstimator";
+import DiggingEstimatorTest from "@/DiggingEstimator/DiggingEstimatorTest";
+import TeamComposition from "@/Team/TeamComposition";
+
+describe("DiggingEstimator", () => {
+  let estimatorTest: DiggingEstimatorTest;
+
+  beforeEach(() => {
+    estimatorTest = new DiggingEstimatorTest()
+      .mockGetDiggingRatePublic([0, 3, 5.5, 7]) // Default get digging rate for "granite"
+      .mockHasGoblins(false); // Default get region without goblins
+  });
+
+  it("should call the getDiggingRatePublic method", () => {
+    estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+    expect(estimatorTest.getDiggingRatePublic).toHaveBeenCalled();
+  });
+
+  it("should call the hasGoblins method", () => {
+    estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+    expect(estimatorTest.hasGoblins).toHaveBeenCalled();
+  });
+
+  it("should return an error when getDiggingRatePublic method is called", () => {
+    expect(() => new DiggingEstimator().getDiggingRatePublic("granite")).toThrow(new Error("Does not work in test mode"));
+  });
+
+  it("should return an error when hasGoblins method is called", () => {
+    expect(() => new DiggingEstimator().hasGoblins("poitou-charentes")).toThrow(new Error("Does not work in test mode"));
+  });
+
+  it("should return an error if parameters are invalid", () => {
+    const estimator = estimatorTest.getInstance();
+
+    expect(() => estimator.tunnel(20.2, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(20, 2.2, "granite","bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(-1, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(20, -1, "granite", "bretagne")).toThrow(new InvalidFormatException());
+  });
+
+  it("should return an error if tunnel is too long for delay", () => {
+    expect(() => estimatorTest.getInstance().tunnel(28, 1, "granite", "bretagne")).toThrow(new TunnelTooLongForDelayException());
+  });
+
+  it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region without goblins", () => {
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
+
+    expect(teamComposition.total).toBe(48);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 8,
+      guards: 0,
+      guardManagers: 0,
+      washers: 2,
+      protectors: 0,
+    });
+    expect(teamComposition.nightTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 4,
+      innKeepers: 12,
+      guards: 5,
+      guardManagers: 2,
+      washers: 3,
+      protectors: 0,
+    });
+  });
+
+  it("should return the composition of the team to dig a 3 meters granite rock for 1 day in a region without goblins", () => {
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(3, 1, "granite", "bretagne");
+
+    expect(teamComposition.total).toBe(9);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 1,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 4,
+      guards: 0,
+      guardManagers: 0,
+      washers: 1,
+      protectors: 0,
+    });
+  });
+
+  it("should return the composition of the team to dig a 15 meters granite rock for 3 days in a region without goblins", () => {
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(15, 3, "granite", "bretagne");
+
+    expect(teamComposition.total).toBe(15);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 2,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 8,
+      guards: 0,
+      guardManagers: 0,
+      washers: 2,
+      protectors: 0,
+    });
+  });
+
+  it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region of goblins", () => {
+    estimatorTest.mockHasGoblins(true);
+    const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "normandie");
+
+    expect(teamComposition.total).toBe(58);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 8,
+      guards: 0,
+      guardManagers: 0,
+      washers: 2,
+      protectors: 2,
+    });
+    expect(teamComposition.nightTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 6,
+      innKeepers: 16,
+      guards: 5,
+      guardManagers: 2,
+      washers: 3,
+      protectors: 2,
+    });
+  });
+});
