@@ -11,26 +11,26 @@ describe("DiggingEstimator", () => {
 
   beforeEach(() => {
     estimatorTest = new DiggingEstimatorTest()
-      .mockGetDiggingRate([0, 3, 5.5, 7])
-      .mockHasGoblinsAccordingLocation(false);
+      .mockGetDiggingRatePublic([0, 3, 5.5, 7]) // Default get digging rate for "granite"
+      .mockHasGoblins(false); // Default get region without goblins
   });
 
-  it("should call the get method", () => {
+  it("should call the getDiggingRatePublic method", () => {
     estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
-    expect(estimatorTest.getDiggingRate).toHaveBeenCalled();
+    expect(estimatorTest.getDiggingRatePublic).toHaveBeenCalled();
   });
 
-  it("should call the hasGoblinsAccordingLocation method", () => {
+  it("should call the hasGoblins method", () => {
     estimatorTest.getInstance().tunnel(28, 2, "granite", "bretagne");
-    expect(estimatorTest.hasGoblinsAccordingLocation).toHaveBeenCalled();
+    expect(estimatorTest.hasGoblins).toHaveBeenCalled();
   });
 
-  it("should return an error when get method is called", () => {
-    expect(() => new DiggingEstimator().getPublic("granite")).toThrow(new Error("Does not work in test mode"));
+  it("should return an error when getDiggingRatePublic method is called", () => {
+    expect(() => new DiggingEstimator().getDiggingRatePublic("granite")).toThrow(new Error("Does not work in test mode"));
   });
 
-  it("should return an error when hasGoblinsAccordingLocation method is called", () => {
-    expect(() => new DiggingEstimator().hasGoblinsAccordingLocation("poitou-charentes")).toThrow(new Error("Does not work in test mode"));
+  it("should return an error when hasGoblins method is called", () => {
+    expect(() => new DiggingEstimator().hasGoblins("poitou-charentes")).toThrow(new Error("Does not work in test mode"));
   });
 
   it("should return an error if parameters are invalid", () => {
@@ -109,7 +109,7 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region of goblins", () => {
-    estimatorTest.mockHasGoblinsAccordingLocation(true);
+    estimatorTest.mockHasGoblins(true);
     const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "normandie");
 
     expect(teamComposition.total).toBe(58);

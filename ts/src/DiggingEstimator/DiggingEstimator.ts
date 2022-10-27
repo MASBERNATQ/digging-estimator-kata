@@ -11,7 +11,7 @@ export class DiggingEstimator {
    * @param {number} length Tunnel length
    * @param {number} days Time in days to dig the tunnel
    * @param {string} rockType Type of rock
-   * @param {string} location The desired region
+   * @param {string} location The region
    * @return {TeamComposition}
    */
   public tunnel(
@@ -20,8 +20,8 @@ export class DiggingEstimator {
     rockType: string,
     location: string
   ): TeamComposition {
-    const digPerRotation = this.getPublic(rockType);
-    const hasGoblins = this.hasGoblinsAccordingLocation(location);
+    const digPerRotation = this.getDiggingRatePublic(rockType);
+    const hasGoblins = this.hasGoblins(location);
     const digPerDay = Math.floor(length / days);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
 
@@ -110,7 +110,7 @@ export class DiggingEstimator {
   }
 
   /**
-   * Get a list with number of meters dug per day and per team miners.
+   * Service for get a list with number of meters dug per day and per team miners.
    *
    * @example
    * // For example, for granite it returns [0, 3, 5.5, 7]
@@ -119,31 +119,31 @@ export class DiggingEstimator {
    * // so a day team on 2 miners and a night team of 1 miner dig 8.5m/d
    * @param {string} rockType Type of rock
    */
-  private get(rockType: string): number[] {
+  private getDiggingRate(rockType: string): number[] {
     const url = `dtp://research.vin.co/digging-rate/${rockType}`;
     console.log(`Tried to fetch ${url}`);
     throw new Error("Does not work in test mode");
   }
 
   /**
-   * Check if there are goblins in the area.
+   * Service for check if there are goblins in the region.
    *
-   * @param {string} location The desired region
+   * @param {string} location The region
    */
-  public hasGoblinsAccordingLocation(location: string): boolean {
+  public hasGoblins(location: string): boolean {
     const url = `dtp://research.vin.co/are-there-goblins/${location}`;
     console.log(`Tried to fetch ${url}`);
     throw new Error("Does not work in test mode");
   }
 
   /**
-   * Public method to bypass the private method get.
+   * Public method to bypass the private method getDiggingRate.
    *
    * @param {string} rockType Type of rock
    * @return {number[]}
    */
-  public getPublic(rockType: string): number[] {
-    return this.get(rockType);
+  public getDiggingRatePublic(rockType: string): number[] {
+    return this.getDiggingRate(rockType);
   }
 }
 

@@ -2,8 +2,8 @@ import DiggingEstimator from "@/DiggingEstimator/DiggingEstimator";
 
 export class DiggingEstimatorTest {
   estimator: DiggingEstimator;
-  getDiggingRate: jest.SpyInstance<number[], [rockType: string]> | null = null;
-  hasGoblinsAccordingLocation: jest.SpyInstance<boolean, [location: string]> | null = null;
+  getDiggingRatePublic: jest.SpyInstance<number[], [rockType: string]> | null = null;
+  hasGoblins: jest.SpyInstance<boolean, [location: string]> | null = null;
 
   /**
    * Constructor.
@@ -22,30 +22,30 @@ export class DiggingEstimatorTest {
   }
 
   /**
-   * Mock getDiggingRate.
+   * Mock getDiggingRatePublic method.
    *
    * @param {number[]} returnValue Value to assign
    * @return {DiggingEstimatorTest}
    */
-  public mockGetDiggingRate(returnValue: number[]): DiggingEstimatorTest {
-    this.getDiggingRate = jest
-      .spyOn(this.estimator, "getPublic")
+  public mockGetDiggingRatePublic(returnValue: number[]): DiggingEstimatorTest {
+    this.getDiggingRatePublic = jest
+      .spyOn(this.estimator, "getDiggingRatePublic")
       .mockReturnValue(returnValue);
 
     return this;
   }
 
   /**
-   * Mock hasGoblinsAccordingLocation.
+   * Mock hasGoblins method.
    *
    * @param {number[]} returnValue Value to assign
    * @return {DiggingEstimatorTest}
    */
-  public mockHasGoblinsAccordingLocation(
+  public mockHasGoblins(
     returnValue: boolean
   ): DiggingEstimatorTest {
-    this.hasGoblinsAccordingLocation = jest
-      .spyOn(this.estimator, "hasGoblinsAccordingLocation")
+    this.hasGoblins = jest
+      .spyOn(this.estimator, "hasGoblins")
       .mockReturnValue(returnValue);
 
     return this;
