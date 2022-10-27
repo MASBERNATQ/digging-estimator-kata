@@ -8,21 +8,29 @@ import TeamComposition from "@/Team/TeamComposition";
 describe("DiggingEstimator", () => {
   let estimator: DiggingEstimator;
   let getDiggingRateForGranite: jest.SpyInstance<number[], [rockType: string]>;
+  let hasGoblinsAccordingLocation: jest.SpyInstance<boolean, [location: string]>;
 
   beforeEach(() => {
     estimator = new DiggingEstimator();
     getDiggingRateForGranite = jest
       .spyOn(estimator, "getPublic")
       .mockReturnValue([0, 3, 5.5, 7]);
+    hasGoblinsAccordingLocation = jest
+      .spyOn(estimator, "hasGoblinsAccordingLocation")
+      .mockReturnValue(false);
   });
 
   it("should call the get function in order to get the digging rate", () => {
     estimator.tunnel(28, 2, "granite");
-    expect(getDiggingRateForGranite).toHaveBeenCalledTimes(1);
+    expect(getDiggingRateForGranite).toHaveBeenCalled();
   });
 
   it("should return an error when get method is called", () => {
     expect(() => new DiggingEstimator().getPublic("granite")).toThrow(new Error("Does not work in test mode"));
+  });
+
+  it("should return an error when hasGoblinsAccordingLocation method is called", () => {
+    expect(() => new DiggingEstimator().hasGoblinsAccordingLocation("poitou-charentes")).toThrow(new Error("Does not work in test mode"));
   });
 
   it("should return an error if parameters are invalid", () => {

@@ -120,7 +120,7 @@ export class DiggingEstimator {
    *
    * @param {string} location The desired region
    */
-  private hasGoblinsAccordingLocation(location: string): boolean {
+  public hasGoblinsAccordingLocation(location: string): boolean {
     const url = `dtp://research.vin.co/are-there-goblins/${location}`;
     console.log(`Tried to fetch ${url}`);
     throw new Error("Does not work in test mode");
