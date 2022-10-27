@@ -57,7 +57,12 @@ export class Team {
     if (this.atLeastOneMiner()) {
       this.innKeepers =
         Math.ceil(
-          (this.miners + this.healers + this.smithies + this.lighters + this.protectors) / 4
+          (this.miners +
+            this.healers +
+            this.smithies +
+            this.lighters +
+            this.protectors) /
+            4
         ) * 4;
     }
 
