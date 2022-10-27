@@ -18,7 +18,7 @@ export class DiggingEstimator {
     length: number,
     days: number,
     rockType: string,
-    location: string,
+    location: string
   ): TeamComposition {
     const digPerRotation = this.getPublic(rockType);
     const hasGoblins = this.hasGoblinsAccordingLocation(location);
@@ -54,10 +54,10 @@ export class DiggingEstimator {
     nt.calculInnKeepers();
 
     if (hasGoblins) {
-      dt.protectors += 2
-      nt.protectors += 2
-      nt.lighters += 2
-      nt.calculInnKeepers
+      dt.protectors += 2;
+      nt.protectors += 2;
+      nt.lighters += 2;
+      nt.calculInnKeepers;
     }
 
     let oldWashers, oldGuard, oldChiefGuard;
@@ -70,8 +70,6 @@ export class DiggingEstimator {
       oldGuard !== nt.guards &&
       oldChiefGuard !== nt.guardManagers
     );
-
-
 
     composition.total = dt.getTotal() + nt.getTotal();
 
