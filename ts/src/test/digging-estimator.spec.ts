@@ -98,4 +98,35 @@ describe("DiggingEstimator", () => {
       washers: 2,
     });
   });
+
+  it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region of goblins", () => {
+    // Add region with goblins
+    estimator = new DiggingEstimator();
+    jest.spyOn(estimator, "hasGoblinsAccordingLocation").mockReturnValue(true);
+
+    const teamComposition: TeamComposition = estimator.tunnel(28, 2, "granite", "normandie");
+    expect(teamComposition.total).toBe(55);
+    expect(teamComposition.dayTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 0,
+      innKeepers: 8,
+      guards: 0,
+      guardManagers: 0,
+      washers: 2,
+      protectors: 2,
+    });
+    expect(teamComposition.nightTeam).toEqual({
+      miners: 3,
+      healers: 1,
+      smithies: 2,
+      lighters: 6,
+      innKeepers: 12,
+      guards: 5,
+      guardManagers: 2,
+      washers: 4,
+      protectors: 2,
+    });
+  });
 });
