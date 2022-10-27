@@ -53,6 +53,13 @@ export class DiggingEstimator {
     nt.calculLighters();
     nt.calculInnKeepers();
 
+    if (hasGoblins) {
+      dt.protectors += 2
+      nt.protectors += 2
+      nt.lighters += 2
+      nt.calculInnKeepers
+    }
+
     let oldWashers, oldGuard, oldChiefGuard;
     do {
       oldWashers = nt.calculWashers();
@@ -63,6 +70,8 @@ export class DiggingEstimator {
       oldGuard !== nt.guards &&
       oldChiefGuard !== nt.guardManagers
     );
+
+
 
     composition.total = dt.getTotal() + nt.getTotal();
 
