@@ -20,9 +20,14 @@ describe("DiggingEstimator", () => {
       .mockReturnValue(false);
   });
 
-  it("should call the get function in order to get the digging rate", () => {
+  it("should call the get method", () => {
     estimator.tunnel(28, 2, "granite", "bretagne");
     expect(getDiggingRateForGranite).toHaveBeenCalled();
+  });
+
+  it("should call the hasGoblinsAccordingLocation method", () => {
+    estimator.tunnel(28, 2, "granite", "bretagne");
+    expect(hasGoblinsAccordingLocation).toHaveBeenCalled();
   });
 
   it("should return an error when get method is called", () => {
