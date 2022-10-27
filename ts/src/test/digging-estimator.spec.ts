@@ -1,9 +1,9 @@
 import {
-  DiggingEstimator,
   InvalidFormatException,
-  TeamComposition,
   TunnelTooLongForDelayException,
-} from "./digging-estimator";
+} from "@/ErrorException";
+import DiggingEstimator from "@/DiggingEstimator/digging-estimator";
+import TeamComposition from "@/Team/TeamComposition";
 
 describe("DiggingEstimator", () => {
   let estimator: DiggingEstimator;
@@ -18,8 +18,11 @@ describe("DiggingEstimator", () => {
 
   it("should call the get function in order to get the digging rate", () => {
     estimator.tunnel(28, 2, "granite");
-    expect(getDiggingRateForGranite).toHaveBeenCalled();
     expect(getDiggingRateForGranite).toHaveBeenCalledTimes(1);
+  });
+
+  it("should return an error when get method is called", () => {
+    expect(() => new DiggingEstimator().getPublic("granite")).toThrow(new Error("Does not work in test mode"));
   });
 
   it("should return an error if parameters are invalid", () => {
@@ -88,4 +91,3 @@ describe("DiggingEstimator", () => {
     });
   });
 });
-
