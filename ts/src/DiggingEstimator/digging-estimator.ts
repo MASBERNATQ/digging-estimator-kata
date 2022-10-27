@@ -116,6 +116,17 @@ export class DiggingEstimator {
   }
 
   /**
+   * Check if there are goblins in the area.
+   *
+   * @param {string} location The desired region
+   */
+  private hasGoblinsAccordingLocation(location: string): boolean {
+    const url = `dtp://research.vin.co/are-there-goblins/${location}`;
+    console.log(`Tried to fetch ${url}`);
+    throw new Error("Does not work in test mode");
+  }
+
+  /**
    * Public method to bypass the private method get.
    *
    * @param {string} rockType Type of rock
