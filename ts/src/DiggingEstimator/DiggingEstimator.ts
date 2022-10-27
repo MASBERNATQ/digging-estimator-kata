@@ -38,6 +38,9 @@ export class DiggingEstimator {
 
     dt.calculHealers();
     dt.calculSmithies();
+    if (hasGoblins) {
+      dt.calculProtectors();
+    }
     dt.calculInnKeepers();
     dt.calculWashers();
 
@@ -51,13 +54,11 @@ export class DiggingEstimator {
     nt.calculHealers();
     nt.calculSmithies();
     nt.calculLighters();
-    nt.calculInnKeepers();
-
     if (hasGoblins) {
-      dt.calculProtectors();
       nt.calculProtectors();
       nt.lighters += 2;
     }
+    nt.calculInnKeepers();
 
     let oldWashers, oldGuard, oldChiefGuard;
     do {
