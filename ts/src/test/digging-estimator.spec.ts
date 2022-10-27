@@ -109,12 +109,9 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 28 meters granite rock for 2 days in a region of goblins", () => {
-    // Add region with goblins
-    estimatorTest = new DiggingEstimatorTest()
-      .mockGetDiggingRate([0, 3, 5.5, 7])
-      .mockHasGoblinsAccordingLocation(true);
-
+    estimatorTest.mockHasGoblinsAccordingLocation(true);
     const teamComposition: TeamComposition = estimatorTest.getInstance().tunnel(28, 2, "granite", "normandie");
+
     expect(teamComposition.total).toBe(54);
     expect(teamComposition.dayTeam).toEqual({
       miners: 3,
