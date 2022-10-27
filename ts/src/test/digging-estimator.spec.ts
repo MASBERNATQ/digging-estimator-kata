@@ -2,7 +2,7 @@ import {
   InvalidFormatException,
   TunnelTooLongForDelayException,
 } from "@/ErrorException";
-import DiggingEstimator from "@/DiggingEstimator/digging-estimator";
+import DiggingEstimator from "@/DiggingEstimator/DiggingEstimator";
 import TeamComposition from "@/Team/TeamComposition";
 
 describe("DiggingEstimator", () => {
