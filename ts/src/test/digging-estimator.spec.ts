@@ -21,7 +21,7 @@ describe("DiggingEstimator", () => {
   });
 
   it("should call the get function in order to get the digging rate", () => {
-    estimator.tunnel(28, 2, "granite");
+    estimator.tunnel(28, 2, "granite", "bretagne");
     expect(getDiggingRateForGranite).toHaveBeenCalled();
   });
 
@@ -34,18 +34,18 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return an error if parameters are invalid", () => {
-    expect(() => estimator.tunnel(20.2, 2, "granite")).toThrow(new InvalidFormatException());
-    expect(() => estimator.tunnel(20, 2.2, "granite")).toThrow(new InvalidFormatException());
-    expect(() => estimator.tunnel(-1, 2, "granite")).toThrow(new InvalidFormatException());
-    expect(() => estimator.tunnel(20, -1, "granite")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(20.2, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(20, 2.2, "granite","bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(-1, 2, "granite", "bretagne")).toThrow(new InvalidFormatException());
+    expect(() => estimator.tunnel(20, -1, "granite", "bretagne")).toThrow(new InvalidFormatException());
   });
 
   it("should return an error if tunnel is too long for delay", () => {
-    expect(() => estimator.tunnel(28, 1, "granite")).toThrow(new TunnelTooLongForDelayException());
+    expect(() => estimator.tunnel(28, 1, "granite", "bretagne")).toThrow(new TunnelTooLongForDelayException());
   });
 
   it("should return the composition of the team to dig a 28 meters granite rock for 2 days", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(28, 2, "granite");
+    const teamComposition: TeamComposition = estimator.tunnel(28, 2, "granite", "bretagne");
     expect(teamComposition.total).toBe(48);
     expect(teamComposition.dayTeam).toEqual({
       miners: 3,
@@ -70,7 +70,7 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 3 meters granite rock for 1 day", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(3, 1, "granite");
+    const teamComposition: TeamComposition = estimator.tunnel(3, 1, "granite", "bretagne");
     expect(teamComposition.total).toBe(9);
     expect(teamComposition.dayTeam).toEqual({
       miners: 1,
@@ -85,7 +85,7 @@ describe("DiggingEstimator", () => {
   });
 
   it("should return the composition of the team to dig a 15 meters granite rock for 3 days", () => {
-    const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite");
+    const teamComposition: TeamComposition = estimator.tunnel(15, 3, "granite", "bretagne");
     expect(teamComposition.total).toBe(15);
     expect(teamComposition.dayTeam).toEqual({
       miners: 2,

@@ -11,14 +11,17 @@ export class DiggingEstimator {
    * @param {number} length Tunnel length
    * @param {number} days Time in days to dig the tunnel
    * @param {string} rockType Type of rock
+   * @param {string} location The desired region
    * @return {TeamComposition}
    */
   public tunnel(
     length: number,
     days: number,
-    rockType: string
+    rockType: string,
+    location: string,
   ): TeamComposition {
     const digPerRotation = this.getPublic(rockType);
+    const hasGoblins = this.hasGoblinsAccordingLocation(location);
     const digPerDay = Math.floor(length / days);
     const maxDigPerRotation = digPerRotation[digPerRotation.length - 1];
 
