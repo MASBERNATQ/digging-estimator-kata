@@ -54,10 +54,9 @@ export class DiggingEstimator {
     nt.calculInnKeepers();
 
     if (hasGoblins) {
-      dt.protectors += 2;
-      nt.protectors += 2;
+      dt.calculProtectors();
+      nt.calculProtectors();
       nt.lighters += 2;
-      nt.calculInnKeepers;
     }
 
     let oldWashers, oldGuard, oldChiefGuard;

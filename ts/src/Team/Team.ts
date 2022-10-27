@@ -126,6 +126,19 @@ export class Team {
   }
 
   /**
+   * Calcul the number of protectors.
+   *
+   * @return {number}
+   */
+  public calculProtectors(): number {
+    if (this.atLeastOneMiner()) {
+      this.protectors = 2;
+    }
+
+    return this.protectors;
+  }
+
+  /**
    * Get total of team.
    *
    * @return {number}
